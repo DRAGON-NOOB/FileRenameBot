@@ -31,3 +31,8 @@ class Translation(object):
 ○ Library : Pyrogram asyncio 0.16.1
 ○ Source Code : [👉 Click Here](https://t.me/AdhavaaBiriyaniKittiyalo) 
 ○ Server : Heroku """
+HELP_USER = """Ohh You Want Help?? 😅
+    
+1.🔹 <b>Send me any Telegram File.</b>
+2.🔹 <b>Reply to that message with /rename New file name.extnsion</b>
+3.🔹 <b>I Can Also Convert Streamable"""
