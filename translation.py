@@ -28,7 +28,7 @@ class Translation(object):
 ○ Creator  : <a href="http://t.me/noob_admin"> ꧁☬⋆ТᎻᎬ༒ᏦᎥᏁᏳ༒C☢nτrͥ☢lͣlͫer⋆☬꧂</a>
 ○ Credits : Everyone in this journey
 ○ Language : Python3
-○ Source code:<a href="https://t.me.//adhavaabiriyanikittiyalo>👉Click here</a>
+○ Source code:<a href="https://t.me.//adhavaabiriyanikittiyalo">👉Click here</a>
 📜 Quote : ആരും പേടിക്കണ്ട എല്ലാവർക്കും കിട്ടും™️"""
 
 HELP_USER = """Ohh You Want Help?? 😅
