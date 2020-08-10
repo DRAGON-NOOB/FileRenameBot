@@ -25,11 +25,11 @@ class Translation(object):
     IFLONG_FILE_NAME = """You Gotta Be Kidding Me...Decrease The Number Of Letters😆😉"""
     ABOUT_ME = """ hey mahn
 ○ My Name : Rename Bot
-○ Creator : ꧁☬⋆ТᎻᎬ༒ᏦᎥᏁᏳ༒C☢nτrͥ☢lͣlͫer⋆☬(https://t.me/Noob_admin)
+○ Creator : <a href="https://t.me/noob_admin">꧁☬⋆ТᎻᎬ༒ᏦᎥᏁᏳ༒C☢nτrͥ☢lͣlͫer⋆☬</a>
 ○ Credits : Everyone in this journey
 ○ Language : Python3
 ○ Library : Pyrogram asyncio 0.16.1
-○ Source Code : [👉 Click Here](https://t.me/AdhavaaBiriyaniKittiyalo) 
+○ Source Code :<a href="https://t.me/adhavaaBiriyankittiyalo">⚡ CLICK HERE</a>
 ○ Server : Heroku """
 HELP_USER = """Ohh You Want Help?? 😅
     
