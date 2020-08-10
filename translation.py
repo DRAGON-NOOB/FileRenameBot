@@ -23,14 +23,16 @@ class Translation(object):
     NO_CUSTOM_THUMB_NAIL_FOUND = "No Custom ThumbNail found,SED🤒"
     USER_ADDED_TO_DB = "User <a href='tg://user?id={}'>{}</a> added to {} till {}."
     IFLONG_FILE_NAME = """You Gotta Be Kidding Me...Decrease The Number Of Letters😆😉"""
-    ABOUT_ME = """ hey mahn
+    ABOUT_ME = """ hey mahn😶
 ○ My Name : Rename Bot
-○ Creator : <a href="https://t.me/noob_admin">꧁☬⋆ТᎻᎬ༒ᏦᎥᏁᏳ༒C☢nτrͥ☢lͣlͫer⋆☬</a>
+○ Creator : [꧁☬⋆ТᎻᎬ༒ᏦᎥᏁᏳ༒C☢nτrͥ☢lͣlͫer⋆☬](https://t.me/Noob_admin)
 ○ Credits : Everyone in this journey
 ○ Language : Python3
-○ Library : Pyrogram asyncio 0.16.1
-○ Source Code :<a href="https://t.me/adhavaaBiriyankittiyalo">⚡ CLICK HERE</a>
-○ Server : Heroku """
+
+○ Source Code : [👉 Click Here](https://t.me/AdhavaaBiriyaniKittiyalo) 
+○ Server : Heroku
+📜 Quote : ആരും പേടിക്കണ്ട എല്ലാവർക്കും കിട്ടും™️"""
+
 HELP_USER = """Ohh You Want Help?? 😅
     
 1.🔹 <b>Send me any Telegram File.</b>
