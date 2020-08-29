@@ -36,4 +36,5 @@ class Config(object):
     DEF_WATER_MARK_FILE = ""
     # Database url
     DB_URI = os.environ.get("DATABASE_URL", "")
-
+   #ADL_BOT_RQ=(0,20)
+   #time limit
