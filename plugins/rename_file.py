@@ -41,7 +41,7 @@ async def rename_doc(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id,
             revoke=True
-  return
+  
     if str(update.from_user.id) not in Config.UTUBE_BOT_USERS:
         # restrict free users from sending more links
         if str(update.from_user.id) in Config.ADL_BOT_RQ:
