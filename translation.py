@@ -36,3 +36,4 @@ HELP_USER = """Ohh You Want Help?? 😅
 1.🔹 <b>Send me any Telegram File.</b>
 2.🔹 <b>Reply to that message with /rename New file name.extnsion</b>
 3.🔹 <b>I Can Also Convert Streamable"""
+FREE_USER_LIMIT_Q_SZE:"try after 20 seconds"
