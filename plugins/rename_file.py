@@ -41,6 +41,23 @@ async def rename_doc(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id,
             revoke=True
+  return
+    if str(update.from_user.id) not in Config.UTUBE_BOT_USERS:
+        # restrict free users from sending more links
+        if str(update.from_user.id) in Config.ADL_BOT_RQ:
+            current_time = time.time()
+            previous_time = Config.ADL_BOT_RQ[str(update.from_user.id)]
+            Config.ADL_BOT_RQ[str(update.from_user.id)] = time.time()
+            if round(current_time - previous_time) < Config.PROCESS_MAX_TIMEOUT:
+                await bot.send_message(
+                    chat_id=update.chat.id,
+                    text=Translation.FREE_USER_LIMIT_Q_SZE,
+                    reply_to_message_id=update.message_id
+                )
+                return
+        else:
+            Config.ADL_BOT_RQ[str(update.from_user.id)] = time.time()
+
         )
         return
     TRChatBase(update.from_user.id, update.text, "rename")
