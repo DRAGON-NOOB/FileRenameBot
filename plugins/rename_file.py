@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+ #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
 
@@ -21,8 +21,11 @@ else:
 from translation import Translation
 
 import pyrogram
+import pyrogram.errors
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-from pyrogram import Client, Filters
+from pyrogram import Client, Filters, ChatPermissions
+from pyrogram import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 
 from helper_funcs.chat_base import TRChatBase
 from helper_funcs.display_progress import progress_for_pyrogram
@@ -34,44 +37,63 @@ from PIL import Image
 from database.database import *
 
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["rename"]))
+@pyrogram.Client.on_message(pyrogram.Filters.command(["converttofile"]))
 async def rename_doc(bot, update):
+
+
+    try:
+        await bot.get_chat_member("@TroJanzHEX", update.chat.id)
+        
+    except UserNotParticipant:
+        await update.reply_text("You Need To Join Our Channel to perform that operatioN🤓\n\n@TroJanzHEX",
+                                reply_markup=InlineKeyboardMarkup(
+                                    [[InlineKeyboardButton(text="❤️Join Channel❤️",
+                                                                       url="https://t.me/TroJanzHEX")]]))
+        return
+        
+    except UserBannedInChannel:
+        await update.reply_text("Sorry, You're BANNED")
+        return
+
+    except Exception:
+        logger.exception('Unable to Verify')
+        await update.reply_text("Something went wrong")
+        return
+
+
+
     if update.from_user.id in Config.BANNED_USERS:
         await bot.delete_messages(
             chat_id=update.chat.id,
             message_ids=update.message_id,
             revoke=True
-  
-    if str(update.from_user.id) not in Config.UTUBE_BOT_USERS:
-        # restrict free users from sending more links
-        if str(update.from_user.id) in Config.ADL_BOT_RQ:
-            current_time = time.time()
-            previous_time = Config.ADL_BOT_RQ[str(update.from_user.id)]
-            Config.ADL_BOT_RQ[str(update.from_user.id)] = time.time()
-            if round(current_time - previous_time) < Config.PROCESS_MAX_TIMEOUT:
-                await bot.send_message(
-                    chat_id=update.chat.id,
-                    text=Translation.FREE_USER_LIMIT_Q_SZE,
-                    reply_to_message_id=update.message_id
-                )
-                return
-        else:
-            Config.ADL_BOT_RQ[str(update.from_user.id)] = time.time()
-
         )
         return
-    TRChatBase(update.from_user.id, update.text, "rename")
+
+
+    #time out between requests
+    if str(update.from_user.id) in Config.ADL_BOT_RQ:
+        current_time = time.time()
+        previous_time = Config.ADL_BOT_RQ[str(update.from_user.id)]
+        Config.ADL_BOT_RQ[str(update.from_user.id)] = time.time()
+        if round(current_time - previous_time) < Config.PROCESS_MAX_TIMEOUT:
+            await update.reply_text(Translation.TIMEOUT)
+            return
+    else:
+        Config.ADL_BOT_RQ[str(update.from_user.id)] = time.time()
+
+
+    TRChatBase(update.from_user.id, update.text, "converttofile")
     if (" " in update.text) and (update.reply_to_message is not None):
         cmd, file_name = update.text.split(" ", 1)
         if len(file_name) > 64:
             await update.reply_text(
-                Translation.IFLONG_FILE_NAME.format(
-                    alimit="64",
-                    num=len(file_name)
+                Translation.LONG_NAME.format(
+                    given=len(file_name)
                 )
             )
             return
-        description = Translation.CUSTOM_CAPTION_UL_FILE
+        description = Translation.CUSTOM_CAPTION_UL_FILE.format(newname=file_name)
         download_location = Config.DOWNLOAD_LOCATION + "/"
         a = await bot.send_message(
             chat_id=update.chat.id,
@@ -98,13 +120,7 @@ async def rename_doc(bot, update):
                 )
             except:
                 pass
-            if "IndianMovie" in the_real_download_location:
-                await bot.edit_message_text(
-                    text=Translation.RENAME_403_ERR,
-                    chat_id=update.chat.id,
-                    message_id=a.message_id
-                )
-                return
+
             new_file_name = download_location + file_name
             os.rename(the_real_download_location, new_file_name)
             await bot.edit_message_text(
@@ -145,7 +161,7 @@ async def rename_doc(bot, update):
                 chat_id=update.chat.id,
                 document=new_file_name,
                 thumb=thumb_image_path,
-                caption=file_name,
+                caption=description,
                 # reply_markup=reply_markup,
                 reply_to_message_id=update.reply_to_message.message_id,
                 progress=progress_for_pyrogram,
@@ -162,6 +178,7 @@ async def rename_doc(bot, update):
                 pass
             await bot.edit_message_text(
                 text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG,
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="🙌🏻 SHARE ME 🙌🏻", url="tg://msg?text=Hai%20Friend%20%E2%9D%A4%EF%B8%8F%2C%0AToday%20i%20just%20found%20out%20an%20intresting%20and%20Powerful%20%2A%2ARename%20Bot%2A%2A%20for%20Free%F0%9F%A5%B0.%20%0A%2A%2ABot%20Link%20%3A%2A%2A%20%40TroJanzRenamer%20%F0%9F%94%A5")]]),
                 chat_id=update.chat.id,
                 message_id=a.message_id,
                 disable_web_page_preview=True
@@ -169,6 +186,7 @@ async def rename_doc(bot, update):
     else:
         await bot.send_message(
             chat_id=update.chat.id,
-            text=Translation.REPLY_TO_DOC_FOR_RENAME_FILE,
+            text=Translation.REPLY_TO_FILE,
             reply_to_message_id=update.message_id
         )
+
